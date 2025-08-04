@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resultado da Validação</title>
+</head>
+<body>
+    <h2>Resultado da Validação ({{ tipo }})</h2>
+    <p>Arquivo: {{ nome }}</p>
+
+    {% if erros %}
+        <ul style="color: red;">
+            {% for erro in erros %}
+                <li>{{ erro }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p style="color: green;">✅ Nenhum erro encontrado!</p>
+    {% endif %}
+
+    <a href="/">Voltar</a>
+</body>
+</html>

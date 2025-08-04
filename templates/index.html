@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Validação de Arquivos</title>
+</head>
+<body>
+    <h2>Validação de Arquivos</h2>
+    <form action="/validar" method="post" enctype="multipart/form-data">
+        <input type="file" name="arquivo" required>
+        <select name="tipo">
+            <option value="html">HTML</option>
+            <option value="sql">SQL</option>
+            <option value="executeblock">Execute Block</option>
+            <option value="csharp">C#</option>
+        </select>
+        <button type="submit">Validar</button>
+    </form>
+</body>
+</html>
