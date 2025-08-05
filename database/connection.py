@@ -8,28 +8,41 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 class DatabaseConnection:
-    """Classe para gerenciar conexões com o banco de dados Firebird"""
-    
     def __init__(self, config=None):
         self.config = config or DB_CONFIG
         self._connection = None
     
     def connect(self):
-        """Estabelece conexão com o banco de dados"""
         try:
+            # Primeiro tenta conexão local direta ao arquivo
+            logger.info(f"Tentando conexão local ao arquivo: {self.config['database']}")
+            
             self._connection = fdb.connect(
-                host=self.config['host'],
-                port=self.config['port'],
-                database=self.config['database'],
+                database=str(self.config['database']),
                 user=self.config['user'],
                 password=self.config['password'],
                 charset=self.config['charset']
             )
-            logger.info("Conexão com o banco de dados estabelecida com sucesso")
+            logger.info("Conexão local estabelecida com sucesso!")
             return self._connection
         except Exception as e:
-            logger.error(f"Erro ao conectar com o banco de dados: {e}")
-            raise
+            logger.warning(f"Conexão local falhou: {e}")
+            try:
+                # Se falhar, tenta via servidor
+                connection_string = f"{self.config['host']}/{self.config['port']}:{self.config['database']}"
+                logger.info(f"Tentando conectar via servidor: {connection_string}")
+                
+                self._connection = fdb.connect(
+                    database=connection_string,
+                    user=self.config['user'],
+                    password=self.config['password'],
+                    charset=self.config['charset']
+                )
+                logger.info("Conexão via servidor estabelecida com sucesso!")
+                return self._connection
+            except Exception as e2:
+                logger.error(f"Erro ao conectar: {e2}")
+                raise
     
     def disconnect(self):
         """Fecha a conexão com o banco de dados"""
@@ -50,13 +63,11 @@ class DatabaseConnection:
             else:
                 cursor.execute(query)
             
-            # Para SELECT, retorna os resultados
             if query.strip().upper().startswith('SELECT'):
                 results = cursor.fetchall()
                 cursor.close()
                 return results
             else:
-                # Para INSERT, UPDATE, DELETE
                 self._connection.commit()
                 cursor.close()
                 return cursor.rowcount
@@ -77,8 +88,7 @@ class DatabaseConnection:
             logger.error(f"Erro na conexão: {e}")
             raise
         finally:
-            # Não fechar a conexão aqui, deixar para o método disconnect
             pass
 
 # Instância global da conexão
-db_connection = DatabaseConnection() 
+db_connection = DatabaseConnection()
