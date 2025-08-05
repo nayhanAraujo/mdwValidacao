@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% block title %}Checklist API | Mdw Validações{% endblock %}
+{% block content %}
+<div class="bg-white p-8 rounded-xl shadow-xl w-full max-w-2xl mx-auto">
+  <h1 class="text-2xl font-bold mb-6 text-blue-700 text-center">Checklist de Validação API</h1>
+  
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="mb-6 p-4 rounded-lg {% if category == 'error' %}bg-red-100 text-red-700 border border-red-300{% else %}bg-green-100 text-green-700 border border-green-300{% endif %}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+  
+  <form id="checklistForm" class="space-y-8" method="POST">
+    
+    <!-- Seção 1: Endpoints -->
+    <div>
+      <h2 class="text-lg font-semibold text-gray-700 mb-2 border-b pb-1">Seção 1: Endpoints</h2>
+      <div class="space-y-2">
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="api_1_1" class="accent-blue-600">
+          1.1. Todos os endpoints estão documentados adequadamente.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="api_1_2" class="accent-blue-600">
+          1.2. Os métodos HTTP estão corretos para cada operação.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="api_1_3" class="accent-blue-600">
+          1.3. As URLs seguem padrões RESTful consistentes.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="api_1_4" class="accent-blue-600">
+          1.4. Os códigos de status HTTP estão corretos.
+        </label>
+      </div>
+    </div>
+
+    <!-- Seção 2: Autenticação -->
+    <div>
+      <h2 class="text-lg font-semibold text-gray-700 mb-2 border-b pb-1">Seção 2: Autenticação e Autorização</h2>
+      <div class="space-y-2">
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="api_2_1" class="accent-blue-600">
+          2.1. A autenticação está implementada corretamente.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="api_2_2" class="accent-blue-600">
+          2.2. Os tokens JWT estão sendo validados adequadamente.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="api_2_3" class="accent-blue-600">
+          2.3. As permissões de acesso estão configuradas.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="api_2_4" class="accent-blue-600">
+          2.4. O refresh token está implementado quando necessário.
+        </label>
+      </div>
+    </div>
+
+    <!-- Seção 3: Validação de Dados -->
+    <div>
+      <h2 class="text-lg font-semibold text-gray-700 mb-2 border-b pb-1">Seção 3: Validação de Dados</h2>
+      <div class="space-y-2">
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="api_3_1" class="accent-blue-600">
+          3.1. Os dados de entrada estão sendo validados.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="api_3_2" class="accent-blue-600">
+          3.2. A sanitização de dados está implementada.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="api_3_3" class="accent-blue-600">
+          3.3. Os tipos de dados estão corretos.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="api_3_4" class="accent-blue-600">
+          3.4. As mensagens de erro são claras e informativas.
+        </label>
+      </div>
+    </div>
+
+    <!-- Seção 4: Performance -->
+    <div>
+      <h2 class="text-lg font-semibold text-gray-700 mb-2 border-b pb-1">Seção 4: Performance</h2>
+      <div class="space-y-2">
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="api_4_1" class="accent-blue-600">
+          4.1. O tempo de resposta está dentro dos padrões aceitáveis.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="api_4_2" class="accent-blue-600">
+          4.2. A paginação está implementada para listas grandes.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="api_4_3" class="accent-blue-600">
+          4.3. O cache está configurado adequadamente.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="api_4_4" class="accent-blue-600">
+          4.4. As consultas ao banco estão otimizadas.
+        </label>
+      </div>
+    </div>
+
+    <!-- Seção 5: Segurança -->
+    <div>
+      <h2 class="text-lg font-semibold text-gray-700 mb-2 border-b pb-1">Seção 5: Segurança</h2>
+      <div class="space-y-2">
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="api_5_1" class="accent-blue-600">
+          5.1. HTTPS está configurado corretamente.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="api_5_2" class="accent-blue-600">
+          5.2. A proteção contra ataques comuns está implementada.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="api_5_3" class="accent-blue-600">
+          5.3. Os logs de segurança estão sendo registrados.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="api_5_4" class="accent-blue-600">
+          5.4. A rate limiting está configurada.
+        </label>
+      </div>
+    </div>
+
+    <!-- Seção 6: Documentação -->
+    <div>
+      <h2 class="text-lg font-semibold text-gray-700 mb-2 border-b pb-1">Seção 6: Documentação</h2>
+      <div class="space-y-2">
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="api_6_1" class="accent-blue-600">
+          6.1. A documentação da API está completa e atualizada.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="api_6_2" class="accent-blue-600">
+          6.2. Os exemplos de uso estão disponíveis.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="api_6_3" class="accent-blue-600">
+          6.3. A documentação está acessível via Swagger/OpenAPI.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="api_6_4" class="accent-blue-600">
+          6.4. Os códigos de erro estão documentados.
+        </label>
+      </div>
+    </div>
+
+    <div class="flex justify-end mt-6">
+      <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow transition">Salvar Checklist API</button>
+    </div>
+  </form>
+</div>
+{% endblock %} 

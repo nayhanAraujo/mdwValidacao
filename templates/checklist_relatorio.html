@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% block title %}Checklist Relatório | Mdw Validações{% endblock %}
+{% block content %}
+<div class="bg-white p-8 rounded-xl shadow-xl w-full max-w-2xl mx-auto">
+  <h1 class="text-2xl font-bold mb-6 text-blue-700 text-center">Checklist de Validação Relatório</h1>
+  
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="mb-6 p-4 rounded-lg {% if category == 'error' %}bg-red-100 text-red-700 border border-red-300{% else %}bg-green-100 text-green-700 border border-green-300{% endif %}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+  
+  <form id="checklistForm" class="space-y-8" method="POST">
+    
+    <!-- Seção 1: Estrutura do Relatório -->
+    <div>
+      <h2 class="text-lg font-semibold text-gray-700 mb-2 border-b pb-1">Seção 1: Estrutura do Relatório</h2>
+      <div class="space-y-2">
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="rel_1_1" class="accent-blue-600">
+          1.1. O relatório possui cabeçalho e rodapé adequados.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="rel_1_2" class="accent-blue-600">
+          1.2. A numeração de páginas está configurada corretamente.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="rel_1_3" class="accent-blue-600">
+          1.3. O layout está otimizado para impressão.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="rel_1_4" class="accent-blue-600">
+          1.4. A estrutura de seções está clara e organizada.
+        </label>
+      </div>
+    </div>
+
+    <!-- Seção 2: Fontes de Dados -->
+    <div>
+      <h2 class="text-lg font-semibold text-gray-700 mb-2 border-b pb-1">Seção 2: Fontes de Dados</h2>
+      <div class="space-y-2">
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="rel_2_1" class="accent-blue-600">
+          2.1. As consultas SQL estão otimizadas e funcionando corretamente.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="rel_2_2" class="accent-blue-600">
+          2.2. Os parâmetros de filtro estão funcionando adequadamente.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="rel_2_3" class="accent-blue-600">
+          2.3. A conexão com o banco de dados está estável.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="rel_2_4" class="accent-blue-600">
+          2.4. Os dados estão sendo atualizados corretamente.
+        </label>
+      </div>
+    </div>
+
+    <!-- Seção 3: Formatação -->
+    <div>
+      <h2 class="text-lg font-semibold text-gray-700 mb-2 border-b pb-1">Seção 3: Formatação</h2>
+      <div class="space-y-2">
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="rel_3_1" class="accent-blue-600">
+          3.1. As fontes e tamanhos estão consistentes.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="rel_3_2" class="accent-blue-600">
+          3.2. As cores estão adequadas e acessíveis.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="rel_3_3" class="accent-blue-600">
+          3.3. Os alinhamentos de texto estão corretos.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="rel_3_4" class="accent-blue-600">
+          3.4. As bordas e espaçamentos estão bem definidos.
+        </label>
+      </div>
+    </div>
+
+    <!-- Seção 4: Tabelas e Gráficos -->
+    <div>
+      <h2 class="text-lg font-semibold text-gray-700 mb-2 border-b pb-1">Seção 4: Tabelas e Gráficos</h2>
+      <div class="space-y-2">
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="rel_4_1" class="accent-blue-600">
+          4.1. As tabelas estão bem estruturadas e legíveis.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="rel_4_2" class="accent-blue-600">
+          4.2. Os gráficos são apropriados para os dados apresentados.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="rel_4_3" class="accent-blue-600">
+          4.3. As legendas e títulos estão claros e informativos.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="rel_4_4" class="accent-blue-600">
+          4.4. Os valores numéricos estão formatados corretamente.
+        </label>
+      </div>
+    </div>
+
+    <!-- Seção 5: Parâmetros -->
+    <div>
+      <h2 class="text-lg font-semibold text-gray-700 mb-2 border-b pb-1">Seção 5: Parâmetros e Filtros</h2>
+      <div class="space-y-2">
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="rel_5_1" class="accent-blue-600">
+          5.1. Os parâmetros obrigatórios estão marcados adequadamente.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="rel_5_2" class="accent-blue-600">
+          5.2. Os valores padrão estão configurados corretamente.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="rel_5_3" class="accent-blue-600">
+          5.3. A validação de parâmetros está funcionando.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="rel_5_4" class="accent-blue-600">
+          5.4. Os filtros estão aplicando corretamente aos dados.
+        </label>
+      </div>
+    </div>
+
+    <!-- Seção 6: Exportação -->
+    <div>
+      <h2 class="text-lg font-semibold text-gray-700 mb-2 border-b pb-1">Seção 6: Exportação e Distribuição</h2>
+      <div class="space-y-2">
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="rel_6_1" class="accent-blue-600">
+          6.1. A exportação para PDF está funcionando corretamente.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="rel_6_2" class="accent-blue-600">
+          6.2. A exportação para Excel está configurada adequadamente.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="rel_6_3" class="accent-blue-600">
+          6.3. O agendamento de relatórios está funcionando.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="rel_6_4" class="accent-blue-600">
+          6.4. A distribuição por email está configurada corretamente.
+        </label>
+      </div>
+    </div>
+
+    <div class="flex justify-end mt-6">
+      <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow transition">Salvar Checklist Relatório</button>
+    </div>
+  </form>
+</div>
+{% endblock %} 

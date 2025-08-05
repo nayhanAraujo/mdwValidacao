@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% block title %}Checklist C# | Mdw Validações{% endblock %}
+{% block content %}
+<div class="bg-white p-8 rounded-xl shadow-xl w-full max-w-2xl mx-auto">
+  <h1 class="text-2xl font-bold mb-6 text-blue-700 text-center">Checklist de Validação C#</h1>
+  
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="mb-6 p-4 rounded-lg {% if category == 'error' %}bg-red-100 text-red-700 border border-red-300{% else %}bg-green-100 text-green-700 border border-green-300{% endif %}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+  
+  <form id="checklistForm" class="space-y-8" method="POST">
+    
+    <!-- Seção 1: Estrutura do Código -->
+    <div>
+      <h2 class="text-lg font-semibold text-gray-700 mb-2 border-b pb-1">Seção 1: Estrutura do Código</h2>
+      <div class="space-y-2">
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="cs_1_1" class="accent-blue-600">
+          1.1. Os namespaces estão organizados corretamente.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="cs_1_2" class="accent-blue-600">
+          1.2. As classes estão bem estruturadas e coesas.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="cs_1_3" class="accent-blue-600">
+          1.3. Os métodos têm responsabilidades bem definidas.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="cs_1_4" class="accent-blue-600">
+          1.4. A indentação e formatação estão consistentes.
+        </label>
+      </div>
+    </div>
+
+    <!-- Seção 2: Nomenclatura -->
+    <div>
+      <h2 class="text-lg font-semibold text-gray-700 mb-2 border-b pb-1">Seção 2: Nomenclatura</h2>
+      <div class="space-y-2">
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="cs_2_1" class="accent-blue-600">
+          2.1. As variáveis seguem o padrão camelCase.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="cs_2_2" class="accent-blue-600">
+          2.2. As classes seguem o padrão PascalCase.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="cs_2_3" class="accent-blue-600">
+          2.3. Os nomes são descritivos e significativos.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="cs_2_4" class="accent-blue-600">
+          2.4. Não há abreviações desnecessárias.
+        </label>
+      </div>
+    </div>
+
+    <!-- Seção 3: Tratamento de Erros -->
+    <div>
+      <h2 class="text-lg font-semibold text-gray-700 mb-2 border-b pb-1">Seção 3: Tratamento de Erros</h2>
+      <div class="space-y-2">
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="cs_3_1" class="accent-blue-600">
+          3.1. Os blocos try-catch estão implementados adequadamente.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="cs_3_2" class="accent-blue-600">
+          3.2. As exceções são tratadas de forma específica.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="cs_3_3" class="accent-blue-600">
+          3.3. Os logs de erro estão sendo registrados.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="cs_3_4" class="accent-blue-600">
+          3.4. As mensagens de erro são informativas.
+        </label>
+      </div>
+    </div>
+
+    <!-- Seção 4: Performance -->
+    <div>
+      <h2 class="text-lg font-semibold text-gray-700 mb-2 border-b pb-1">Seção 4: Performance</h2>
+      <div class="space-y-2">
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="cs_4_1" class="accent-blue-600">
+          4.1. As consultas ao banco estão otimizadas.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="cs_4_2" class="accent-blue-600">
+          4.2. O uso de memória está controlado.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="cs_4_3" class="accent-blue-600">
+          4.3. Os loops estão eficientes.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="cs_4_4" class="accent-blue-600">
+          4.4. O garbage collection está sendo gerenciado adequadamente.
+        </label>
+      </div>
+    </div>
+
+    <!-- Seção 5: Segurança -->
+    <div>
+      <h2 class="text-lg font-semibold text-gray-700 mb-2 border-b pb-1">Seção 5: Segurança</h2>
+      <div class="space-y-2">
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="cs_5_1" class="accent-blue-600">
+          5.1. A validação de entrada está implementada.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="cs_5_2" class="accent-blue-600">
+          5.2. A sanitização de dados está sendo feita.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="cs_5_3" class="accent-blue-600">
+          5.3. As senhas estão sendo criptografadas.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="cs_5_4" class="accent-blue-600">
+          5.4. A autenticação e autorização estão configuradas.
+        </label>
+      </div>
+    </div>
+
+    <!-- Seção 6: Boas Práticas -->
+    <div>
+      <h2 class="text-lg font-semibold text-gray-700 mb-2 border-b pb-1">Seção 6: Boas Práticas</h2>
+      <div class="space-y-2">
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="cs_6_1" class="accent-blue-600">
+          6.1. O código segue os princípios SOLID.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="cs_6_2" class="accent-blue-600">
+          6.2. A injeção de dependência está sendo usada.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="cs_6_3" class="accent-blue-600">
+          6.3. Os padrões de design estão sendo aplicados.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="cs_6_4" class="accent-blue-600">
+          6.4. O código está bem documentado com comentários.
+        </label>
+      </div>
+    </div>
+
+    <div class="flex justify-end mt-6">
+      <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow transition">Salvar Checklist C#</button>
+    </div>
+  </form>
+</div>
+{% endblock %} 

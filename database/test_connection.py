@@ -1,7 +1,3 @@
-#!/usr/bin/env python3
-"""
-Script para testar a conexão com o banco de dados Firebird
-"""
 
 import sys
 import os

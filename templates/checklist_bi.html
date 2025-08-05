@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% block title %}Checklist BI | Mdw Validações{% endblock %}
+{% block content %}
+<div class="bg-white p-8 rounded-xl shadow-xl w-full max-w-2xl mx-auto">
+  <h1 class="text-2xl font-bold mb-6 text-blue-700 text-center">Checklist de Validação BI</h1>
+  
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="mb-6 p-4 rounded-lg {% if category == 'error' %}bg-red-100 text-red-700 border border-red-300{% else %}bg-green-100 text-green-700 border border-green-300{% endif %}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+  
+  <form id="checklistForm" class="space-y-8" method="POST">
+    
+    <!-- Seção 1: Configuração do Painel -->
+    <div>
+      <h2 class="text-lg font-semibold text-gray-700 mb-2 border-b pb-1">Seção 1: Configuração do Painel</h2>
+      <div class="space-y-2">
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="bi_1_1" class="accent-blue-600">
+          1.1. O painel possui título e descrição adequados.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="bi_1_2" class="accent-blue-600">
+          1.2. A configuração de layout está otimizada para diferentes resoluções.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="bi_1_3" class="accent-blue-600">
+          1.3. Os filtros estão posicionados de forma intuitiva.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="bi_1_4" class="accent-blue-600">
+          1.4. O painel possui navegação clara e consistente.
+        </label>
+      </div>
+    </div>
+
+    <!-- Seção 2: Conexões de Dados -->
+    <div>
+      <h2 class="text-lg font-semibold text-gray-700 mb-2 border-b pb-1">Seção 2: Conexões de Dados</h2>
+      <div class="space-y-2">
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="bi_2_1" class="accent-blue-600">
+          2.1. As fontes de dados estão corretamente configuradas.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="bi_2_2" class="accent-blue-600">
+          2.2. As consultas SQL estão otimizadas para performance.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="bi_2_3" class="accent-blue-600">
+          2.3. Os parâmetros de conexão estão seguros.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="bi_2_4" class="accent-blue-600">
+          2.4. O cache de dados está configurado adequadamente.
+        </label>
+      </div>
+    </div>
+
+    <!-- Seção 3: Visualizações -->
+    <div>
+      <h2 class="text-lg font-semibold text-gray-700 mb-2 border-b pb-1">Seção 3: Visualizações</h2>
+      <div class="space-y-2">
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="bi_3_1" class="accent-blue-600">
+          3.1. Os gráficos são apropriados para os dados apresentados.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="bi_3_2" class="accent-blue-600">
+          3.2. As cores e legendas estão claras e consistentes.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="bi_3_3" class="accent-blue-600">
+          3.3. Os valores numéricos estão formatados corretamente.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="bi_3_4" class="accent-blue-600">
+          3.4. As interações (drill-down, drill-through) funcionam corretamente.
+        </label>
+      </div>
+    </div>
+
+    <!-- Seção 4: Performance -->
+    <div>
+      <h2 class="text-lg font-semibold text-gray-700 mb-2 border-b pb-1">Seção 4: Performance</h2>
+      <div class="space-y-2">
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="bi_4_1" class="accent-blue-600">
+          4.1. O tempo de carregamento está dentro dos padrões aceitáveis.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="bi_4_2" class="accent-blue-600">
+          4.2. As consultas estão otimizadas e indexadas adequadamente.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="bi_4_3" class="accent-blue-600">
+          4.3. O uso de memória está controlado.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="bi_4_4" class="accent-blue-600">
+          4.4. Os dados são atualizados em intervalos apropriados.
+        </label>
+      </div>
+    </div>
+
+    <!-- Seção 5: Segurança -->
+    <div>
+      <h2 class="text-lg font-semibold text-gray-700 mb-2 border-b pb-1">Seção 5: Segurança e Permissões</h2>
+      <div class="space-y-2">
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="bi_5_1" class="accent-blue-600">
+          5.1. As permissões de acesso estão configuradas corretamente.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="bi_5_2" class="accent-blue-600">
+          5.2. Os dados sensíveis estão protegidos.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="bi_5_3" class="accent-blue-600">
+          5.3. O Row Level Security (RLS) está implementado quando necessário.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="bi_5_4" class="accent-blue-600">
+          5.4. Os logs de acesso estão sendo registrados.
+        </label>
+      </div>
+    </div>
+
+    <!-- Seção 6: Usabilidade -->
+    <div>
+      <h2 class="text-lg font-semibold text-gray-700 mb-2 border-b pb-1">Seção 6: Usabilidade</h2>
+      <div class="space-y-2">
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="bi_6_1" class="accent-blue-600">
+          6.1. A interface é intuitiva e fácil de usar.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="bi_6_2" class="accent-blue-600">
+          6.2. Os filtros e controles funcionam corretamente.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="bi_6_3" class="accent-blue-600">
+          6.3. A exportação de dados funciona adequadamente.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="bi_6_4" class="accent-blue-600">
+          6.4. O painel foi testado com diferentes navegadores.
+        </label>
+      </div>
+    </div>
+
+    <div class="flex justify-end mt-6">
+      <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow transition">Salvar Checklist BI</button>
+    </div>
+  </form>
+</div>
+{% endblock %} 
