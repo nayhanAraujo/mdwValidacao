@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% block title %}Validação Manual | Mdw Validações{% endblock %}
+{% block content %}
+<div class="bg-white p-8 rounded-xl shadow-xl w-full max-w-2xl mx-auto">
+  <h1 class="text-2xl font-bold mb-6 text-blue-700 text-center">Checklist de Validação Manual</h1>
+  
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="mb-6 p-4 rounded-lg {% if category == 'error' %}bg-red-100 text-red-700 border border-red-300{% else %}bg-green-100 text-green-700 border border-green-300{% endif %}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+  
+  <form id="checklistForm" class="space-y-8" method="POST">
+    
+    <!-- Seção 1 -->
+    <div>
+      <h2 class="text-lg font-semibold text-gray-700 mb-2 border-b pb-1">Seção 1: Estrutura HTML</h2>
+      <div class="space-y-2">
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="sec1_1" class="accent-blue-600">
+          1.1. Todo o conteúdo está dentro de uma única <code>&lt;div id="containerHtml"&gt;</code>. 
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="sec1_2" class="accent-blue-600">
+          1.2. O script não contém as tags <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code> ou <code>&lt;link&gt;</code>.
+        </label>
+      </div>
+    </div>
+
+    <!-- Seção 2 -->
+    <div>
+      <h2 class="text-lg font-semibold text-gray-700 mb-2 border-b pb-1">Seção 2: Inicialização de JavaScript</h2>
+      <div class="space-y-2">
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="sec2_1" class="accent-blue-600">
+          2.1. Existe uma função principal de inicialização chamada <code>iniciarFuncoes()</code>.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="sec2_2" class="accent-blue-600">
+          2.2. A chamada <code>iniciarFuncoes();</code> é a última instrução executada no final do script.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="sec2_3" class="accent-blue-600">
+          2.3. Métodos de inicialização obsoletos (<code>DOMContentLoaded</code>, <code>window.onload</code>) não são utilizados.
+        </label>
+      </div>
+    </div>
+
+    <!-- Seção 3 -->
+    <div>
+      <h2 class="text-lg font-semibold text-gray-700 mb-2 border-b pb-1">Seção 3: Estilização (CSS)</h2>
+      <div class="space-y-2">
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="sec3_1" class="accent-blue-600">
+          3.1. Não são usadas classes CSS com nomes genéricos que possam causar conflito (ex: <code>.container</code>, <code>.button</code>, <code>.table</code>).
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="sec3_2" class="accent-blue-600">
+          3.2. Os nomes das classes CSS são específicos e usam prefixos para evitar conflitos (ex: <code>laudo-tabela</code>, <code>btn-calcular</code>).
+        </label>
+      </div>
+    </div>
+
+    <!-- Seção 4 -->
+    <div>
+      <h2 class="text-lg font-semibold text-gray-700 mb-2 border-b pb-1">Seção 4: Persistência de Dados</h2>
+      <div class="space-y-2">
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="sec4_1" class="accent-blue-600">
+          4.1. Todos os campos (input, select) que salvam dados possuem um id que começa com o prefixo <code>VR_</code>.
+        </label>
+      </div>
+    </div>
+
+    <!-- Seção 5 -->
+    <div>
+      <h2 class="text-lg font-semibold text-gray-700 mb-2 border-b pb-1">Seção 5: Configuração de Impressão</h2>
+      <div class="space-y-2">
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="sec5_1" class="accent-blue-600">
+          5.1. O conteúdo que deve ser impresso está dentro de um elemento com o atributo <code>ats="imprimir"</code>.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="sec5_2" class="accent-blue-600">
+          5.2. Controles de tela (botões, etc.) estão localizados fora do elemento <code>ats="imprimir"</code>.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="sec5_3" class="accent-blue-600">
+          5.3. Estilos específicos para impressão são definidos dentro de uma regra <code>@media print</code>.
+        </label>
+      </div>
+    </div>
+
+    <!-- Seção 6 -->
+    <div>
+      <h2 class="text-lg font-semibold text-gray-700 mb-2 border-b pb-1">Seção 6: Segurança e Boas Práticas</h2>
+      <div class="space-y-2">
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="sec6_1" class="accent-blue-600">
+          6.1. O script não utiliza funções bloqueadas ou inseguras como <code>eval()</code> ou <code>document.write()</code>.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="sec6_2" class="accent-blue-600">
+          6.2. O script termina com um comentário de mapeamento para facilitar o debug (ex: <code>//# sourceURL=nome_do_laudo.js</code>).
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="sec6_3" class="accent-blue-600">
+          6.3. Todos os campos foram preenchidos e os cálculos foram verificados.
+        </label>
+        <label class="flex items-center gap-3">
+          <input type="checkbox" name="sec6_4" class="accent-blue-600">
+          6.4. A impressão foi validada.
+        </label>
+      </div>
+    </div>
+
+    <div class="flex justify-end mt-6">
+      <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow transition">Salvar Validação</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

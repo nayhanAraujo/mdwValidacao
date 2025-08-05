@@ -1,23 +1,14 @@
-from flask import Flask, render_template, request
-from validators import html_validator
+from flask import Flask
+from routes import main_bp, validacao_bp
+from routes.validacoes_especificas import validacoes_bp
 
 app = Flask(__name__)
+app.secret_key = 'mdw_validacao_secret_key_2025'  # Necessário para flash messages
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-@app.route('/validar', methods=['POST'])
-def validar():
-    tipo = request.form['tipo']
-    arquivo = request.files['arquivo']
-    conteudo = arquivo.read().decode('utf-8')
-
-    erros = []
-    if tipo == 'html':
-        erros = html_validator.validar_html(conteudo)
-
-    return render_template('resultado_validacao.html', erros=erros, tipo=tipo, nome=arquivo.filename)
+# Registro dos blueprints
+app.register_blueprint(main_bp)
+app.register_blueprint(validacao_bp)
+app.register_blueprint(validacoes_bp)
 
 if __name__ == '__main__':
     app.run(debug=True)

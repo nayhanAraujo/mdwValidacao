@@ -1,22 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Resultado da Validação</title>
-</head>
-<body>
-    <h2>Resultado da Validação ({{ tipo }})</h2>
-    <p>Arquivo: {{ nome }}</p>
+{% extends "base.html" %}
+{% block title %}Resultado da Validação | Mdw Validações{% endblock %}
+{% block content %}
+<div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md mx-auto">
+    <h2 class="text-2xl font-semibold text-center mb-6 text-blue-700">Resultado da Validação ({{ tipo }})</h2>
+    <p class="mb-4 text-gray-700"><span class="font-semibold">Arquivo:</span> {{ nome }}</p>
 
     {% if erros %}
-        <ul style="color: red;">
+        <ul class="mb-4 text-red-600 list-disc list-inside">
             {% for erro in erros %}
                 <li>{{ erro }}</li>
             {% endfor %}
         </ul>
     {% else %}
-        <p style="color: green;">✅ Nenhum erro encontrado!</p>
+        <p class="mb-4 text-green-600 flex items-center">
+            <span class="mr-2 text-xl">✅</span> Nenhum erro encontrado!
+        </p>
     {% endif %}
 
-    <a href="/">Voltar</a>
-</body>
-</html>
+    <a href="/" class="inline-block mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">Voltar</a>
+</div>
+{% endblock %}

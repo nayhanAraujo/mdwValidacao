@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}{{ titulo }} | Mdw Validações{% endblock %}
+{% block content %}
+<div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md mx-auto">
+    <h2 class="text-2xl font-semibold text-center mb-6 text-blue-700">{{ titulo }}</h2>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="mb-4 p-3 rounded {% if category == 'error' %}bg-red-100 text-red-700 border border-red-300{% else %}bg-green-100 text-green-700 border border-green-300{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <form action="{{ request.path }}" method="post" enctype="multipart/form-data" class="space-y-4">
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Arquivo {{ tipo }}</label>
+            <input type="file" name="arquivo" required 
+                   accept="{% if tipo == 'HTML' %}.html,.htm{% elif tipo == 'C#' %}.cs{% else %}*{% endif %}"
+                   class="block w-full text-gray-700 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"/>
+            <p class="text-xs text-gray-500 mt-1">
+                {% if tipo == 'HTML' %}
+                    Aceita arquivos .html e .htm
+                {% elif tipo == 'C#' %}
+                    Aceita arquivos .cs
+                {% elif tipo == 'BI' %}
+                    Aceita arquivos de painel BI
+                {% elif tipo == 'API' %}
+                    Aceita arquivos de API
+                {% elif tipo == 'Relatório' %}
+                    Aceita arquivos de relatório
+                {% else %}
+                    Aceita todos os tipos de arquivo
+                {% endif %}
+            </p>
+        </div>
+        
+        <button type="submit" class="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
+            Validar {{ tipo }}
+        </button>
+    </form>
+    
+    <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+        <h3 class="text-sm font-semibold text-gray-700 mb-2">Sobre a validação de {{ tipo }}:</h3>
+        <ul class="text-xs text-gray-600 space-y-1">
+            {% if tipo == 'HTML' %}
+                <li>• Verifica estrutura HTML correta</li>
+                <li>• Valida tags obrigatórias</li>
+                <li>• Checa atributos necessários</li>
+                <li>• Analisa JavaScript integrado</li>
+            {% elif tipo == 'C#' %}
+                <li>• Verifica sintaxe C#</li>
+                <li>• Valida namespaces</li>
+                <li>• Checa imports necessários</li>
+                <li>• Analisa estrutura de classes</li>
+            {% elif tipo == 'BI' %}
+                <li>• Verifica configurações de painel</li>
+                <li>• Valida conexões de dados</li>
+                <li>• Checa permissões de acesso</li>
+                <li>• Analisa performance de consultas</li>
+            {% elif tipo == 'API' %}
+                <li>• Verifica endpoints da API</li>
+                <li>• Valida autenticação</li>
+                <li>• Checa documentação</li>
+                <li>• Analisa segurança</li>
+            {% elif tipo == 'Relatório' %}
+                <li>• Verifica estrutura do relatório</li>
+                <li>• Valida fontes de dados</li>
+                <li>• Checa formatação</li>
+                <li>• Analisa parâmetros</li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+{% endblock %} 

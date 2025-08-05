@@ -1,19 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Validação de Arquivos</title>
-</head>
-<body>
-    <h2>Validação de Arquivos</h2>
-    <form action="/validar" method="post" enctype="multipart/form-data">
-        <input type="file" name="arquivo" required>
-        <select name="tipo">
-            <option value="html">HTML</option>
-            <option value="sql">SQL</option>
-            <option value="executeblock">Execute Block</option>
-            <option value="csharp">C#</option>
-        </select>
-        <button type="submit">Validar</button>
+{% extends "base.html" %}
+{% block title %}Validação Automática | Mdw Validações{% endblock %}
+{% block content %}
+<div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md mx-auto">
+    <h2 class="text-2xl font-semibold text-center mb-6 text-blue-700">Validação de Arquivos</h2>
+    <form action="/validar" method="post" enctype="multipart/form-data" class="space-y-4">
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Arquivo</label>
+            <input type="file" name="arquivo" required class="block w-full text-gray-700 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"/>
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Tipo</label>
+            <select name="tipo" class="block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                <option value="html">HTML</option>
+                <option value="sql">SQL</option>
+                <option value="executeblock">Execute Block</option>
+                <option value="csharp">C#</option>
+            </select>
+        </div>
+        <button type="submit" class="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">Validar</button>
     </form>
-</body>
-</html>
+</div>
+{% endblock %}

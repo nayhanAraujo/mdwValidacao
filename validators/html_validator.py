@@ -3,7 +3,8 @@ import re
 def validar_html(conteudo):
     erros = []
 
-    if '<div id="containerHtml">' not in conteudo:
+     # Corrigindo a verificação do containerHtml:
+    if not re.search(r'<div[^>]*\bid\s*=\s*["\']containerHtml["\']', conteudo, re.IGNORECASE):
         erros.append("❌ Falta o containerHtml principal.")
 
     if any(tag in conteudo.lower() for tag in ["<html", "<head", "<body", "<link"]):
